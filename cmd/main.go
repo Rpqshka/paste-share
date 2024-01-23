@@ -40,13 +40,13 @@ func main() {
 			logrus.Fatalf("Error occured while running http server: %s", err.Error())
 		}
 	}()
-	logrus.Printf("TodoApp Started")
+	logrus.Printf("Paste Share App Started")
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
 	<-quit
 
-	logrus.Printf("TodoApp Shutting Down")
+	logrus.Printf("Paste Share App Shutting Down")
 
 	if err := srv.Shutdown(context.Background()); err != nil {
 		logrus.Errorf("error occured on server shutting down: %s", err.Error())
