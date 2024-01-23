@@ -2,11 +2,11 @@ package PasteShare
 
 type Paste struct {
 	Id          int    `json:"id" db:"id"`
-	Title       string `json:"title" binding:"required"`
-	Description string `json:"description"`
-	Data        string `json:"data"`
-	Date        string `json:"date"`
-	Likes       int    `json:"likes"`
+	Title       string `json:"title" db:"title" binding:"required"`
+	Description string `json:"description" db:"description"`
+	Data        string `json:"data" db:"data" binding:"required"`
+	Date        string `json:"paste_date" db:"paste_date"`
+	Likes       int    `json:"likes" db:"likes"`
 }
 
 type UsersPastes struct {
