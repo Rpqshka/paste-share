@@ -16,7 +16,9 @@ type Authorization interface {
 	SetNewPassword(id, password string) error
 }
 
-type TodoList interface {
+type Paste interface {
+	CreatePaste(userId int, paste pasteShare.Paste) (int, error)
+	GetAll(userId int) ([]pasteShare.Paste, error)
 }
 
 type TodoItem interface {
@@ -24,10 +26,12 @@ type TodoItem interface {
 
 type Repository struct {
 	Authorization
+	Paste
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
 	return &Repository{
 		Authorization: NewAuthPostgres(db),
+		Paste:         NewPastePostgres(db),
 	}
 }
