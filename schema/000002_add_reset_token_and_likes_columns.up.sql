@@ -3,4 +3,5 @@ ALTER TABLE users
     ADD COLUMN expired_at TIMESTAMP;
 
 ALTER TABLE pastes
+    ADD COLUMN paste_date TIMESTAMP,
     ADD COLUMN likes INT;
