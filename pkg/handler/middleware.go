@@ -39,6 +39,13 @@ func validateEmail(email string) bool {
 	return re.MatchString(email)
 }
 
+func getCurrentTime() string {
+	currentTime := time.Now().UTC()
+	formattedCurrentTime := currentTime.Format("2006-01-02 15:04:05")
+
+	return formattedCurrentTime
+}
+
 func generateRecoveryCode() (string, string) {
 	rand.New(rand.NewSource(time.Now().UnixNano()))
 
@@ -97,4 +104,20 @@ func (h *Handler) userIdentity(c *gin.Context) {
 		return
 	}
 	c.Set(userCtx, userId)
+}
+
+func getUserId(c *gin.Context) (int, error) {
+	id, ok := c.Get(userCtx)
+	if !ok {
+		newErrorResponse(c, http.StatusInternalServerError, "user id not found")
+		return 0, errors.New("user id not found")
+	}
+
+	idInt, ok := id.(int)
+	if !ok {
+		newErrorResponse(c, http.StatusInternalServerError, "user id is of invalid type")
+		return 0, errors.New("user id is of invalid type")
+	}
+
+	return idInt, nil
 }

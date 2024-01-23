@@ -28,6 +28,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		paste := api.Group("/paste")
 		{
 			paste.POST("/", h.createPaste)
+			paste.GET("/", h.getAllPastes)
 		}
 	}
 
