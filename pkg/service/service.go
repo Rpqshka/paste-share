@@ -17,7 +17,9 @@ type Authorization interface {
 	SetNewPassword(id, password string) error
 }
 
-type TodoList interface {
+type Paste interface {
+	CreatePaste(userId int, paste pasteShare.Paste) (int, error)
+	GetAll(userId int) ([]pasteShare.Paste, error)
 }
 
 type TodoItem interface {
@@ -25,10 +27,12 @@ type TodoItem interface {
 
 type Service struct {
 	Authorization
+	Paste
 }
 
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
+		Paste:         NewPasteService(repos.Paste),
 	}
 }
